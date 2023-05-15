@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Sign Up - Courier Management Dashboard</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<style>
+    body {
+        background-color: #f4f4f4;
+        font-family: Arial, sans-serif;
+        font-size: 16px;
+        line-height: 1.5;
+    }
+    
+    header {
+        background-color: #333;
+        color: #fff;
+        padding: 10px;
+        text-align: center;
+    }
+    
+    h1 {
+        margin: 0;
+    }
+    
+    main {
+        margin: 50px auto;
+        max-width: 500px;
+        padding: 20px;
+        background-color: #fff;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        border-radius: 5px;
+    }
+    
+    .signup-container {
+        text-align: center;
+    }
+    
+    form {
+        display: inline-block;
+        text-align: left;
+        margin-top: 20px;
+    }
+    
+    label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+    }
+    
+    input[type="text"],
+    input[type="email"],
+    input[type="password"] {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        margin-bottom: 10px;
+    }
+    
+    input[type="submit"] {
+        background-color: #333;
+        color: #fff;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    
+    input[type="submit"]:hover {
+        background-color: #666;
+    }
+    
+    a {
+        color: #333;
+        text-decoration: none;
+    }
+    
+    footer {
+        background-color: #333;
+        color: #fff;
+        padding: 10px;
+        text-align: center;
+        margin-top: 50px;
+    }
+    
+    @media screen and (max-width: 768px) {
+        .signup-container {
+            margin: 0 auto;
+        }
+    }
+    
+</style>
+<body>
+	<header>
+		<h1>Courier Management SignUp</h1>
+       
+	</header>
+
+	<main>
+		<div class="signup-container">
+			<h2>Sign Up</h2>
+			<form method="post">
+                {% csrf_token%}
+				<label for="name">Name:</label>
+				<input type="text" id="username" name="username" placeholder="Enter your name" required>
+
+				<label for="email">Email:</label>
+				<input type="email" id="email" name="email" placeholder="Enter your email address" required>
+
+				<label for="password">Password:</label>
+				<input type="password" id="password" name="password" placeholder="Enter your password" required>
+
+				<label for="confirm-password">Confirm Password:</label>
+				<input type="password" id="confirm-password" onkeyup="validate_password()" name="confirm-password" placeholder="Confirm your password" required>
+
+				<input id="submit" type="submit" disabled>
+			</form>
+            <p>{{error}}</p>
+			<p>Already have an account? <a href="{% url 'login'%}">Login</a></p>
+		</div>
+	</main>
+
+    <script>
+        function validate_password(){
+        var pass=document.getElementById("password").value;
+        var cpass=document.getElementById("confirm-password").value;
+        
+        if(pass==cpass){
+            if(cpass.length>=8){
+            document.getElementById('submit').disabled=false;
+            document.getElementById("confirm-password").style.borderColor="black";
+            }
+        }
+        if(pass!=cpass){
+            document.getElementById('submit').disabled=true;
+            document.getElementById("confirm-password").style.borderColor="red";
+        }
+
+    }
+    </script>
+
+	<footer>
+		<p>Courier Management Signup</p>
+	</footer>
+
+
+</body>
+</html>

@@ -1,0 +1,228 @@
+
+<style>
+    /* reset styles */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f1f1f1;
+  }
+  
+  /* header styles */
+  header {
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
+  }
+  
+  header h1 {
+    margin: 0;
+  }
+  
+  /* navigation styles */
+  nav {
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  }
+  
+  nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  nav li a {
+    display: block;
+    color: #333;
+    text-decoration: none;
+    padding: 10px;
+  }
+  
+  nav li a:hover {
+    background-color: #333;
+    color: #fff;
+  }
+  
+  nav #menu-button {
+    display: none;
+  }
+  
+  @media only screen and (max-width: 768px) {
+    nav ul {
+      flex-wrap: wrap;
+      justify-content: space-between;
+    }
+  
+    nav li {
+      margin-bottom: 10px;
+    }
+  
+    nav #menu-button {
+      display: block;
+      padding: 10px;
+      background-color: #333;
+      color: #fff;
+      border: none;
+      margin-right: 10px;
+      cursor: pointer;
+    }
+  
+    nav #menu-button:hover {
+      background-color: #444;
+    }
+  
+    nav #menu {
+      display: none;
+      position: absolute;
+      top: 50px;
+      left: 0;
+      width: 100%;
+      background-color: #fff;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      padding: 10px;
+      z-index: 1;
+    }
+  
+    nav #menu li {
+      margin-bottom: 10px;
+    }
+  
+    nav #menu li a {
+      display: block;
+      padding: 10px;
+    }
+  
+    nav #menu-button.active + #menu {
+      display: block;
+    }
+  }
+  
+  /* main content styles */
+  main {
+    padding: 20px;
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  article {
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    margin: 10px;
+    padding: 20px;
+    flex-basis: calc(50% - 20px);
+    box-sizing: border-box;
+  }
+  
+  article h2 {
+    margin-top: 0;
+  }
+  
+  article table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  article th,
+  article td {
+    padding: 10px;
+    text-align: left;
+  }
+  
+  article th {
+    background-color: #eee;
+  }
+  
+  /* footer styles */
+  footer {
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
+    text-align: center;
+  }
+  header p, header a{
+    right:5%;
+    position:absolute;
+    text-decoration:none;
+    top:1%;
+    color:#fff;
+  }
+
+</style>
+
+
+<header>
+	<h1>Courier Management Dashboard</h1>
+  <p><a href="{% url 'logout' %}">Logout</a></p>
+</header>
+
+<nav>
+	<ul>
+		<li><a href="{% url 'dashboard'%}">Dashboard</a></li>
+		<li><a href="{% url 'report_manager'%}">Reports</a></li>
+	</ul>
+</nav>
+
+<section>
+	<article>
+		<h2>{{branch.name|capfirst}} Branch Shipments</h2>
+    <table>
+      <tr>
+				<th>Client</th>
+				<th>Destination</th>
+				<th>Status</th>
+        <th>Reached</th>
+        
+			</tr>
+      {% for courier in todays%}
+      <tr>
+        <td>{{courier.customer.username}}</td>
+          <td>{{courier.destination|capfirst}}</td>
+          <td>{{courier.status|capfirst}}</td>
+          <td>{{courier.created|timesince}} ago</td>
+      </tr>
+      {% endfor %}
+
+    </table>
+    <br>
+		<table>
+      
+			<tr>
+				<th>Client</th>
+				<th>Destination</th>
+				<th>Status</th>
+        <th>Delivered</th>
+        <th>Delivery_by</th>
+			</tr>
+
+      {% for courier in couriers %}
+        <tr>
+          <td>{{courier.customer.username}}</td>
+          <td>{{courier.destination|capfirst}}</td>
+          <td>{{courier.status|capfirst}}</td>
+          <td>{{courier.created|timesince}} ago</td>
+          <td>{{courier.delivery_by|capfirst}}</td>
+			  </tr>
+      {% endfor%}
+			
+		</table>
+	</article>
+	
+	<article>
+		<h2>Client Information</h2>
+		<form method="post">
+      {%csrf_token%}
+			<label for="client_name">Courier Id:</label>
+			<input type="text" id="client_id" name="client_id">
+
+			<input type="submit" value="Save">
+		</form>
+    {{error}}
+	</article>
+</section>
+
+<footer>
+	<p> Courier Management Dashboard</p>
+</footer>

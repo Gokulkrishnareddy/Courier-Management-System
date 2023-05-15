@@ -1,0 +1,244 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Tracker - Courier Management Dashboard</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<style>
+    body {
+        background-color: #f4f4f4;
+        font-family: Arial, sans-serif;
+        font-size: 16px;
+        line-height: 1.5;
+    }
+    
+    header {
+        background-color: #333;
+        color: #fff;
+        padding: 10px;
+        text-align: center;
+    }
+    
+    h1 {
+        margin: 0;
+    }
+    
+    main {
+        margin: 50px auto;
+        max-width: 900px;
+        padding: 20px;
+        background-color: #fff;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        border-radius: 5px;
+    }
+    
+    .tracker-container {
+        text-align: center;
+    }
+    
+    form {
+        display: inline-block;
+        text-align: left;
+        margin-top: 20px;
+    }
+    
+    label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+    }
+    
+    input[type="text"] {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        margin-bottom: 10px;
+    }
+    
+    button[type="submit"] {
+        background-color: #333;
+        color: #fff;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    
+    button[type="submit"]:hover {
+        background-color: #666;
+    }
+    
+    .tracking-results {
+        margin-top: 20px;
+        border: 1px solid #ccc;
+        padding: 10px;
+        border-radius: 5px;
+        text-align: left;
+    }
+    
+    .tracking-results h3 {
+        margin-top: 0;
+    }
+    
+    .tracking-results p {
+        margin-bottom: 0;
+    }
+    
+    footer {
+        background-color: #333;
+        color: #fff;
+        padding: 10px;
+        text-align: center;
+        margin-top: 50px;
+    }
+    header p, header a{
+        text-decoration:none;
+
+        color:#fff;
+      }
+      article table {
+        border-collapse: collapse;
+        width: 100%;
+      }
+      
+      article th,
+      article td {
+        padding: 10px;
+        text-align: left;
+      }
+      
+      article th {
+        background-color: #eee;
+      }
+      nav {
+        background-color: #fff;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      }
+      
+      nav ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      
+      nav li a {
+        display: block;
+        color: #333;
+        text-decoration: none;
+        padding: 10px;
+      }
+      
+      nav li a:hover {
+        background-color: #333;
+        color: #fff;
+      }
+      
+      nav #menu-button {
+        display: none;
+      }
+    @media screen and (max-width: 768px) {
+        .tracker-container {
+            margin: 0 auto;
+        }
+    }
+    table {
+        border-collapse: collapse;
+        width: 100%;
+      }
+      
+      th,
+      td {
+        padding: 10px;
+        text-align: left;
+      }
+      
+      th {
+        background-color: #eee;
+      }
+      @media only screen and (max-width: 768px) {
+        nav ul {
+          flex-wrap: wrap;
+          justify-content: space-between;
+        }
+      
+        nav li {
+          margin-bottom: 10px;
+        }
+      
+        nav #menu-button {
+          display: block;
+          padding: 10px;
+          background-color: #333;
+          color: #fff;
+          border: none;
+          margin-right: 10px;
+          cursor: pointer;
+        }
+      
+        nav #menu-button:hover {
+          background-color: #444;
+        }
+\
+        nav #menu {
+          display: none;
+          position: absolute;
+          top: 50px;
+          left: 0;
+          width: 100%;
+          background-color: #fff;
+          box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+          padding: 10px;
+          z-index: 1;
+        }
+      
+        nav #menu li {
+          margin-bottom: 10px;
+        }
+      
+        nav #menu li a {
+          display: block;
+          padding: 10px;
+        }
+      
+        nav #menu-button.active + #menu {
+          display: block;
+        }
+      }
+    
+</style>
+<body>
+	<header>
+		<h1>Courier Management Report</h1>
+        <p><a href="{% url 'logout' %}">Logout</a></p>
+	</header>
+
+
+	<main>
+		<div class="tracker-container">
+			<h2>Reports</h2>
+			<div class="tracking-results">
+                <table>
+                <form method="post">
+                    {% csrf_token %}
+                    <th><textarea name="report-body" rows="10" ></textarea></th>
+                    <th>{{courier.name}}</th>
+                    <th><button type="submit">submit</button><th>
+                </form>
+            </table>
+			</div>
+		</div>
+	</main>
+
+	<footer>
+		<p>Courier Management Report</p>
+	</footer>
+\
+</body>
+</html>
